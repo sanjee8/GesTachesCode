@@ -1,0 +1,87 @@
+body {
+    background-color: #ececec;
+    opacity: 0.8;
+    background-image: radial-gradient(#d2d2d2 0.5px, #ececec 0.5px);
+    background-size: 10px 10px;
+}
+
+.login-block {
+    background-color: #F4F4F3;
+    margin: 100px;
+    padding: 25px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.login-block h1 {
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-size: 40px;
+}
+
+.name-style {
+
+}
+
+.name-style input {
+    width: 49%;
+    display: inline;
+}
+
+.name-style input:first-of-type {
+    margin-right: 5px;
+}
+
+.input-style {
+    border-radius: 0;
+    border-color: transparent;
+}
+
+.input-style:focus {
+    border-color: transparent;
+}
+
+.inputGroup-style {
+    margin-bottom: 15px;
+}
+
+
+
+
+.check-style {
+    outline-color: transparent;
+    border-radius: 0;
+}
+
+.notRegister-style {
+    outline: none;
+    text-decoration: none;
+
+}
+
+.submit-style {
+    border-color: transparent;
+    border-radius: 0;
+    font-weight: bold;
+    color: white;
+    padding: 10px;
+    width: 50%;
+    text-transform: uppercase;
+    font-size: large;
+}
+
+.error-log-u {
+    margin-bottom: 20px;
+    background-color: #ff1d58;
+    color: white;
+    padding: 15px;
+}
+
+.error-log ul {
+    list-style-type: none;
+
+    margin-bottom: 20px;
+    background-color: #ff1d58;
+    color: white;
+    padding: 15px;
+}

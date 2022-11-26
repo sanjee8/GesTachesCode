@@ -1,0 +1,29 @@
+{% extends 'template/log.html.twig' %}
+
+{% set active_page = 'error' %}
+{% block title %}Erreur 404{% endblock %}
+
+{% block body %}
+
+
+    <div class="container mt-4">
+        <div class="row">
+
+            <div class="text-center p-5">
+                <h1>Erreur 404</h1>
+                <p>La page que vous recherchez n'existe pas ou a été déplacée.</p>
+
+                <a href="{{ path("home") }}" class="btn btn-success btn-lg mt-3">Retourner à l'accueil</a>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+{% endblock %}
+

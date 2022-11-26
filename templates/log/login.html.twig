@@ -1,0 +1,61 @@
+{% extends 'template/log.html.twig' %}
+
+{% set active_page = 'login' %}
+{% block title %}Se connecter{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <form method="post" class="login-block col-5 offset-1" id="banner">
+            <div class="row">
+                <div>
+                    <h1>Se connecter</h1>
+
+
+                    {% if error_message %}
+                        <div class="error-log-u">
+                            {{ error_message }}
+                        </div>
+                    {% endif %}
+
+                    {% if error %}
+                        <div class="error-log-u">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+
+
+                    <div class="form-group inputGroup-style">
+                        <input type="email" autocomplete="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control input-style" placeholder="Entrez votre adresse email">
+
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control input-style" name="password" id="inputPassword" autocomplete="current-password" placeholder="Entrez votre mot de passe">
+                    </div>
+
+                    <input type="hidden" name="_csrf_token"
+                           value="{{ csrf_token('authenticate') }}"
+                    >
+
+                    {#
+                    Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                    See https://symfony.com/doc/current/security/remember_me.html
+
+                    <div class="checkbox mb-3">
+                        <label>
+                            <input type="checkbox" name="_remember_me"> Remember me
+                        </label>
+                    </div>
+                    #}
+
+                    <div class="mt-4">
+                        <a class="notRegister-style" href="{{ path('register') }}">Vous n'êtes pas encore inscrit ?</a>
+                        <button type="submit" class="btn btn-primary submit-style float-end">Connexion</button>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

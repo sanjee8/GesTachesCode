@@ -1,0 +1,198 @@
+body {
+    background-color: #ECECEC;
+    display:grid;
+    grid-template-rows: auto 1fr auto;
+    min-height:100vh;
+}
+
+/*
+---------------------------------------------
+START NAVBAR
+---------------------------------------------
+*/
+
+.navbar {
+    height: 120px;
+}
+
+.navbar .navbar-brand {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: x-large;
+    margin-right: 5%;
+}
+
+.navbar .nav-item {
+
+    margin-right: 5px;
+    margin-left: 5px;
+    min-width: 80px;
+    text-align: center;
+    color: white;
+}
+
+.navbar .active {
+    background-color: #E6E9ED;
+}
+
+.navbar .nav-item:hover {
+    background-color: #F5F7FA;
+}
+
+.navbar .nav-item a {
+    color: black;
+
+}
+
+.navbar .nav-link {
+
+}
+
+
+@media only screen and (max-width: 800px) {
+    .profileTop {
+        display: none;
+    }
+}
+
+
+.profileTop .avatarContainerTop {
+    float: left;
+}
+
+.infoContainerTop {
+    margin-top: 15px;
+}
+
+.infoContainerTop span {
+    font-weight: bold;
+}
+
+.infoContainerTop a {
+    text-decoration: none;
+    font-size: small;
+}
+
+.profileTop .avatarTop {
+    width: 75px;
+
+}
+
+
+
+/*
+---------------------------------------------
+END NAVBAR
+---------------------------------------------
+
+---------------------------------------------
+START FOOTER
+---------------------------------------------
+
+*/
+footer{
+    padding:10px;
+    background:white;
+
+    font-size: small;
+
+
+}
+/*
+
+---------------------------------------------
+END FOOTER
+---------------------------------------------
+
+---------------------------------------------
+START CONTENTS
+---------------------------------------------
+ */
+
+
+.tasks {
+    background-color: white;
+    padding: 20px;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    margin-right: 35px;
+}
+
+.side-tasks {
+    background-color: white;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    padding: 20px;
+}
+
+.task-pending {
+
+}
+
+.task-link {
+    text-decoration: none;
+}
+
+.task-link:hover {
+    text-decoration: none;
+    color: black;
+    background-color: #F5F7FA;
+}
+
+.task-icon {
+    float: left;
+    margin-right: 20px;
+}
+
+
+.new-task {
+    float: right;
+}
+
+.see-more {
+    position: absolute;
+    bottom: 10px;
+}
+
+
+.collabSelected {
+    background-color: #656D78;
+    color: white;
+    text-decoration: none;
+    padding-left: 3px;
+    border: 0;
+    margin-right: 5px;
+}
+
+.collabSelected i {
+    color: #AAB2BD;
+    margin-left: 5px;
+
+}
+
+.collabSelected:hover i {
+    color: #656D78;
+}
+
+.collabSelected:hover {
+    color: white;
+    background-color: #AAB2BD;
+}
+
+.success-msg {
+    margin-bottom: 20px;
+    margin-top: 20px;
+    background-color: #41B3A3;
+    color: white;
+    padding: 15px;
+}
+
+
+/*
+---------------------------------------------
+TESTS
+---------------------------------------------
+*/
+
+
+.testbg {
+    background-color: red;
+}

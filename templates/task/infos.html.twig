@@ -1,0 +1,136 @@
+{% extends 'template/base.html.twig' %}
+
+{% set active_page = 'task' %}
+{% block title %}Nouvelle tâche{% endblock %}
+
+{% block body %}
+
+
+    <div class="container mt-4">
+        <div class="row">
+
+            <div class="tasks col-md-8">
+                <span class="badge bg-{{ task_status.css }} float-end">{{ task_status.msg }}</span>
+                <h4>Gérer la tâche : <span>{{ task.name }}</span></h4>
+
+
+                {{ form_start(form_update) }}
+                    <fieldset>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="update_task_name" class="form-label mt-4">Nom de la tâche</label>
+                                {{ form_widget(form_update.name, { 'attr': {'class':'form-control', 'placeholder' : 'Nom de la tâche'}}) }}
+
+                            </div>
+
+
+
+                            <div class="form-group col-md-6">
+                                <label for="update_task_pourcent" class="form-label mt-4">Avancement de la tâche :</label>
+                                {{ form_widget(form_update.pourcent, { 'attr': {'class':'form-range', 'step':'10'}}) }}
+
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="form-label mt-4" for="update_task_description">Description</label>
+                            {{ form_widget(form_update.description, { 'attr': {'class':'form-control', 'placeholder' : 'Nom de la tâche', 'id' : 'editordata'}}) }}
+
+
+                        </div>
+
+
+                        <button type="submit" class="btn btn-success btn-lg float-end mt-3 col-md-4">Mettre à jour la tâche</button>
+
+
+                    </fieldset>
+                {{ form_end(form_update) }}
+
+                <hr>
+
+                <button class="btn btn-success float-end mt-2">Ajouter un avancement</button>
+
+                <h4 class="mt-4 mb-5">Avancements</h4>
+
+                <div class="list-group">
+                    <div class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">List group item heading</h5>
+                            <small class="text-muted">3 days ago</small>
+                        </div>
+                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                        <small class="text-muted">Ecrit par Sanjeevan Rammohan.</small>
+                    </div>
+                    <div class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">List group item heading</h5>
+                            <small class="text-muted">3 days ago</small>
+                        </div>
+                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                        <small class="text-muted">Donec id elit non mi porta.</small>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="tasks col-md-3">
+                <h4>Collaborateurs</h4>
+
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control ti-add" placeholder="Email du collaborateur" aria-label="Email du collaborateur" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-success ti-add-btn" type="button"><i class="fa-solid fa-user-plus"></i></button>
+                    </div>
+                </div>
+
+                <div class="ti-collab">
+                    <img class="avatar" src="https://img.freepik.com/premium-vector/female-user-profile-avatar-is-woman-character-screen-saver-with-emotions_505620-617.jpg?w=2000" alt="">
+                    <div class="infos">
+                        <a title="{{ task.createby.firstname }} {{ task.createby.lastname }}">
+                            {{ "#{task.createby.firstname} #{task.createby.lastname}"|length > 14 ? "#{task.createby.firstname} #{task.createby.lastname}"|slice(0, 14) ~ '..' : "#{task.createby.firstname} #{task.createby.lastname}"  }}
+                        </a>
+                        <span>Créateur de la tâche</span>
+                    </div>
+
+                </div>
+
+                {% for collab in task.collaborators %}
+                    <div class="ti-collab">
+                        <img class="avatar" src="https://img.freepik.com/premium-vector/female-user-profile-avatar-is-woman-character-screen-saver-with-emotions_505620-617.jpg?w=2000" alt="">
+                        <div class="infos">
+                            <a title="{{ collab.firstname }} {{ collab.lastname }}">
+                                {{ "#{collab.firstname} #{collab.lastname}"|length > 14 ? "#{collab.firstname} #{collab.lastname}"|slice(0, 14) ~ '..' : "#{collab.firstname} #{collab.lastname}"  }}
+                            </a>
+                            <span>Collaborateur</span>
+                        </div>
+                        <div class="delete">
+                            <a href=""><i class="fa-solid fa-user-xmark fa-lg"></i></a>
+
+                        </div>
+                    </div>
+                {% endfor %}
+
+
+
+
+
+
+
+            </div>
+
+
+
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+{% endblock %}

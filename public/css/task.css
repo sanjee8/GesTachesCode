@@ -1,0 +1,69 @@
+.ti-collab {
+
+    border-radius: 50px;
+    background-color: #F5F7FA;
+    display: flex;
+
+    margin-top: 15px;
+
+
+}
+
+.ti-collab:hover {
+    background-color: #E6E9ED;
+}
+
+.ti-collab .avatar{
+    padding: 1px;
+    width: 64px;
+    border-radius: 50%;
+    background-color: #F5F7FA;
+}
+
+
+
+.ti-collab .infos {
+
+    padding: 3%;
+    font-weight: bold;
+
+
+}
+
+.ti-collab .infos a {
+    text-decoration: none;
+    color: black;
+}
+
+.ti-collab .infos span {
+    display: block;
+    font-size: small;
+    font-weight: normal;
+    color: grey;
+}
+
+.ti-collab .delete {
+    margin-left: auto;
+    padding: 7%;
+}
+
+
+.ti-collab .delete a {
+    text-decoration: none;
+    color: #aaaaaa;
+}
+
+
+.ti-collab .delete a:hover {
+    color: black;
+}
+
+
+.ti-add {
+    border-radius: 20px;
+}
+
+.ti-add-btn {
+    border-end-end-radius: 20px;
+    border-start-end-radius: 20px;
+}

@@ -1,0 +1,89 @@
+{% extends 'template/base.html.twig' %}
+
+{% set active_page = 'home' %}
+
+{% block body %}
+    <div class="container mt-4">
+        <div class="row">
+
+            <div class="col-md-8 tasks">
+                <h4>Tâches effectuées</h4>
+
+
+                <canvas id="myChart"></canvas>
+
+            </div>
+
+            <div class="col-md-3 side-tasks">
+                <h4>Tâches en cours</h4>
+                <ul class="list-group list-group-flush task-pending">
+                    <a href="#" class="list-group-item task-link">
+                        <span class="task-icon"><i class="fa-solid fa-rotate"></i></span>
+                        Cras justo odio
+                    </a>
+                    <a href="#" class="list-group-item task-link">
+                        <span class="task-icon"><i class="fa-solid fa-rotate"></i></span>
+                        Cras justo odio
+                    </a>
+                    <a href="#" class="list-group-item task-link">
+                        <span class="task-icon"><i class="fa-solid fa-rotate"></i></span>
+                        Cras justo odio
+                    </a>
+                    <a href="#" class="list-group-item task-link">
+                        <span class="task-icon"><i class="fa-solid fa-rotate"></i></span>
+                        Cras justo odio
+                    </a>
+                    <a href="#" class="list-group-item task-link">
+                        <span class="task-icon"><i class="fa-solid fa-rotate"></i></span>
+                        Cras justo odio
+                    </a>
+                    <a href="#" class="list-group-item task-link">
+                        <span class="task-icon"><i class="fa-solid fa-rotate"></i></span>
+                        Cras justo odio
+                    </a>
+                    <a href="#" class="list-group-item task-link">
+                        <span class="task-icon"><i class="fa-solid fa-rotate"></i></span>
+                        Cras justo odio
+                    </a>
+                    <a href="#" class="list-group-item task-link">
+                        <span class="task-icon"><i class="fa-solid fa-rotate"></i></span>
+                        Cras justo odio
+                    </a>
+
+                </ul>
+
+                <div class="see-more">
+                    <a href="">Voir d'avantages..</a>
+                </div>
+            </div>
+
+            {% block javascripts %}
+                {{ parent() }}
+            <script>
+                const ctx = document.getElementById('myChart');
+
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
+                        datasets: [{
+                            label: '# de tâches',
+                            data: [12, 19, 3, 5, 2, 3, 0],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            </script>
+            {% endblock %}
+
+        </div>
+
+    </div>
+{% endblock %}

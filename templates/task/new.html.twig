@@ -1,0 +1,77 @@
+{% extends 'template/base.html.twig' %}
+
+{% set active_page = 'task' %}
+{% block title %}Nouvelle tâche{% endblock %}
+
+{% block body %}
+
+
+    <div class="container mt-4">
+        <div class="row">
+
+            <div class="tasks">
+                <div class=" mb-5">
+                    <a class="new-task btn btn-success" href="{{ path("task") }}"><i class="fa-solid fa-chevron-left"></i> Revenir en arrière</a>
+                    <h4>Créer une nouvelle tâche</h4>
+                </div>
+
+
+                {{ form_start(form) }}
+
+                    <fieldset>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="task_name" class="form-label mt-4">Nom de la tâche</label>
+                                {{ form_widget(form.name, { 'attr': {'class':'form-control', 'placeholder' : 'Nom de la tâche'}}) }}
+                                <small id="nameHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                            </div>
+
+
+
+                            <div class="form-group col-md-6">
+                                <label for="collabFinder" class="form-label mt-4">Collaborateurs </label>
+
+                                <div class="dropdown">
+                                    <input class="form-select testtoggle"  id="collabFinder" aria-describedby="collabHelp" data-bs-toggle="dropdown" href="#" placeholder="Email du collaborateur">
+
+                                    <div class="dropdown-menu purposeCollabs" id="purposeCollabs" aria-labelledby="collabFinder">
+                                        <a href="" class="dropdown-item disabled noCollab">Aucun collaborateur trouvé.</a>
+                                    </div>
+                                </div>
+
+                                <small id="collabHelp" class="form-text text-muted">
+                                    Collaborateurs:
+                                    <button class="collabSelected disabled" disabled>{{ app.user.firstname }} <small>(vous)</small> <i class="fa-sharp fa-solid fa-xmark"></i></button>
+
+                                </small>
+                                {{ form_widget(form.collabs_input, { 'attr' : {'hidden' : 'true'}}) }}
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="form-label mt-4" for="task_description">Description</label>
+                            {{ form_widget(form.description, { 'attr': {'class':'form-control', 'placeholder' : 'Nom de la tâche', 'name' : 'editordata'}}) }}
+
+                        </div>
+
+
+                        <button type="submit" class="btn btn-success btn-lg float-end mt-3 col-md-4">Créer la tâche</button>
+
+
+                    </fieldset>
+                {{ form_end(form) }}
+
+            </div>
+
+
+
+
+
+
+        </div>
+
+    </div>
+
+
+{% endblock %}

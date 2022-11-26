@@ -1,0 +1,64 @@
+{% extends 'template/base.html.twig' %}
+
+{% set active_page = 'task' %}
+{% block title %}Tâches{% endblock %}
+
+{% block body %}
+
+
+    <div class="container mt-4">
+        <div class="row">
+
+            <div class="tasks">
+
+                <div class=" mb-5">
+                    <a class="new-task btn btn-success" href="{{ path("new_task") }}"><i class="fa-solid fa-plus"></i> Nouvelle tache</a>
+                    <h4>Liste des tâches</h4>
+
+
+                    {% if msg %}
+                        <div class="success-msg">
+                            {{ msg }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+
+                <table id="task_table" class="table table-striped p-3">
+                    <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Date de création</th>
+                        <th>Office</th>
+                        <th>Age</th>
+                        <th>Start date</th>
+                        <th>Salary</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for task in tasks %}
+                    <tr>
+                        <td>{{ task.name }}</td>
+                        <td>{{ task.dateCreated|date("m/d/Y H:i") }}</td>
+                        <td>Edinburgh</td>
+                        <td>61</td>
+                        <td>{{ task.createBy.firstname }}</td>
+                        <td>{{ task.status }}</td>
+                    </tr>
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+{% endblock %}
