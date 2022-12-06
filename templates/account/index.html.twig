@@ -1,0 +1,103 @@
+{% extends 'template/base.html.twig' %}
+
+{% set active_page = 'user' %}
+{% block title %}Mon compte{% endblock %}
+
+
+{% block body %}
+    <div class="container mt-4">
+        <div class="row">
+
+
+
+            <div class="profile-top mt-4">
+
+
+                <div class="profileAvatar">
+                    <img class="avatar-top" src="{{ app.user.avatar }}" alt="">
+
+                    <div class="overlay">
+                        <a href="#" class="icon" title="Modifier votre photo de profile">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                    </div>
+                </div>
+
+
+                <div class="profile-info">
+                    <h4>Bienvenue {{ app.user.firstname }} !</h4>
+                    <a href="{{ path("logout") }}">Ce n'est pas vous ? Cliquez ici pour changer de compte !</a>
+                </div>
+
+                <div class="profile-actions">
+
+                    <button data-tab="password" class="action-btn account-tab-btn">
+                        <i class="fa-solid fa-lock fa-2xl"></i>
+                    </button>
+                    <button data-tab="informations" class="action-btn account-tab-btn">
+                        <i class="fa-solid fa-id-card fa-2xl"></i>
+                    </button>
+
+
+
+                </div>
+
+
+
+            </div>
+
+
+
+        </div>
+
+
+            {{ form_errors(form_password) }}
+
+
+
+        <div class="account-actions">
+            <div id="account-waiting" class="waiting">
+                <h4>Vous pouvez gérer votre compte depuis cette rubrique.</h4>
+            </div>
+
+            <div id="password-change" hidden class="password-change col-md-8 mx-auto mt-5">
+                <h4 class="m-3">Vous souhaitez changer votre mot de passe ?</h4>
+                {{ form_start(form_password) }}
+                <div class="form-group m-5">
+
+
+                    <div class="form-floating mb-3">
+                        {{ form_widget(form_password.old_password, { 'attr': {'class':'form-control', 'placeholder' : 'Mot de passe actuel'}}) }}
+                        <label for="new_password_old_password">Mot de passe actuel</label>
+                    </div>
+                    <div class="form-floating mt-4">
+                        {{ form_widget(form_password.password, { 'attr': {'class':'form-control', 'placeholder' : 'Mot de passe actuel'}}) }}
+                        <label for="new_password_password">Nouveau mot de passe</label>
+                    </div>
+                    <div class="form-floating mt-2">
+                        {{ form_widget(form_password.check_password, { 'attr': {'class':'form-control', 'placeholder' : 'Mot de passe actuel'}}) }}
+                        <label for="new_password_check_password">Confirmez le mot de passe</label>
+                    </div>
+
+
+                    <button type="submit" class="btn btn-success btn-lg float-end mt-4 mb-4">Mettre à jour</button>
+                </div>
+
+
+
+
+                {{ form_end(form_password) }}
+            </div>
+
+
+            <div id="informations-change" hidden class="password-change col-md-8 mx-auto mt-5">
+                <h4 class="m-3">Vous souhaitez mettre à jour votre profil ?</h4>
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}

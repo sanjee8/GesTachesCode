@@ -60,9 +60,15 @@ class Task
      */
     private $pourcent;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="task", orphanRemoval=true)
+     */
+    private $comments;
+
     public function __construct()
     {
         $this->collaborators = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -174,6 +180,36 @@ class Task
     public function setPourcent(int $pourcent): self
     {
         $this->pourcent = $pourcent;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setTask($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getTask() === $this) {
+                $comment->setTask(null);
+            }
+        }
 
         return $this;
     }

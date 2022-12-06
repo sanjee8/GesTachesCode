@@ -1,0 +1,2 @@
+#!/bin/sh
+rsync -av ./ u109183481@access920424456.webspace-data.io:~/gestaches --include=public/build --include=public/.htaccess --include=vendor --exclude-from=.gitignore --exclude=".*"

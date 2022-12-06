@@ -1,0 +1,20 @@
+.profile-confirm {
+    display: flex;
+    justify-content: center;
+}
+
+.confirm-header {
+    font-weight: bold;
+}
+
+.profile-confirm img {
+    width: 64px;
+}
+
+.profile-confirm .profile-infos {
+    margin-top: 8px;
+}
+
+.profile-confirm .profile-infos span {
+    display: block;
+}

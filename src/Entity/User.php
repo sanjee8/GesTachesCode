@@ -63,6 +63,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $check_password;
 
     /**
+     * @var string
+     */
+    private $old_password;
+
+    /**
      * @Groups({"user:read"})
      * @ORM\Column(type="string", length=255)
      */
@@ -109,12 +114,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
+     * @return string
+     */
+    public function getOldPassword(): string
+    {
+        return $this->old_password;
+    }
+
+    /**
      * @param string $check_password
      * @return User
      */
     public function setCheckPassword(string $check_password): self
     {
         $this->check_password = $check_password;
+
+        return $this;
+    }
+
+    /**
+     * @param string $old_password
+     * @return User
+     */
+    public function setOldPassword(string $old_password): self
+    {
+        $this->old_password = $old_password;
 
         return $this;
     }
@@ -308,6 +332,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getAvatar(): ?string
     {
+        if($this->avatar == null) {
+            return "https://img.freepik.com/premium-vector/female-user-profile-avatar-is-woman-character-screen-saver-with-emotions_505620-617.jpg?w=2000";
+        }
+
         return $this->avatar;
     }
 
@@ -318,9 +346,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function __toString() : ?string
+    public function __toString() : string
     {
-        return $this->getId();
+        return strval($this->getId());
     }
 
 }

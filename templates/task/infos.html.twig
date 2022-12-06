@@ -14,7 +14,10 @@
                 <h4>Gérer la tâche : <span>{{ task.name }}</span></h4>
 
 
-                {{ form_start(form_update) }}
+                {% if form_update_editable %}
+
+
+                    {{ form_start(form_update) }}
                     <fieldset>
                         <div class="row">
                             <div class="form-group col-md-6">
@@ -46,31 +49,99 @@
 
 
                     </fieldset>
-                {{ form_end(form_update) }}
+                    {{ form_end(form_update) }}
+
+                {% else %}
+
+                    <fieldset>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="update_task_name" class="form-label mt-4">Nom de la tâche</label>
+                                <input type="text" value="{{ task.name }}" class="form-control disabled" disabled id="update_task_name" aria-describedby="nameHelp" placeholder="Nom de la tâche">
+
+                            </div>
+
+
+
+                            <div class="form-group col-md-6">
+                                <label for="update_task_pourcent" class="form-label mt-4">Avancement de la tâche :</label>
+                                <div class="progress m-1">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: {{ task.pourcent }}%;" aria-valuenow="{{ task.pourcent }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="form-label mt-4" for="update_task_description">Description</label>
+                            <div>
+                                {% autoescape false %}
+                                    {{ task.description }}
+                                {% endautoescape %}
+                            </div>
+
+
+                        </div>
+
+
+                    </fieldset>
+
+                {% endif %}
+
 
                 <hr>
 
-                <button class="btn btn-success float-end mt-2">Ajouter un avancement</button>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#addCommentModal" class="btn btn-success float-end mt-2">Ajouter un avancement</button>
+
+                <div class="modal fade" id="addCommentModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserModal" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                {{ form_start(form_comment) }}
+                                <div class="row">
+                                    <h5 class="confirm-header">Ajouter un avancement</h5>
+
+                                    <input type="text" value="{{ path("users_delete", {id: 0}) }}" hidden disabled id="profile-data-model-link">
+
+                                    <div class="form-group- mb-3">
+                                        {{ form_widget(form_comment.title, { 'attr': {'class':'form-control mb-3', 'placeholder' : "Nom de l'avancement"}}) }}
+
+
+                                        {{ form_widget(form_comment.message, { 'attr': {'class':'form-control', 'placeholder' : "Message de l'avancement", 'id' : 'editordata'}}) }}
+
+                                    </div>
+
+
+                                </div>
+
+
+                                <div class="float-end">
+                                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Annuler</button>
+                                    <button type="submit" class="btn btn-success btn-sm">Ajouter</button>
+                                </div>
+                                {{ form_end(form_comment) }}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
 
                 <h4 class="mt-4 mb-5">Avancements</h4>
 
                 <div class="list-group">
+                    {% for comment in task.comments %}
                     <div class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">List group item heading</h5>
-                            <small class="text-muted">3 days ago</small>
+                            <h5 class="mb-1">{{ comment.title }}</h5>
+                            <small class="text-muted">{{ comment.dateOf|date("m/d/Y à H:i") }}</small>
                         </div>
-                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                        <small class="text-muted">Ecrit par Sanjeevan Rammohan.</small>
+                        <p class="mb-1">{{ comment.message }}</p>
+                        <small class="text-muted">Écrit par {{ comment.author.firstname }} {{ comment.author.lastname }}.</small>
                     </div>
-                    <div class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">List group item heading</h5>
-                            <small class="text-muted">3 days ago</small>
-                        </div>
-                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                        <small class="text-muted">Donec id elit non mi porta.</small>
-                    </div>
+                    {% endfor %}
                 </div>
 
 
@@ -79,15 +150,24 @@
             <div class="tasks col-md-3">
                 <h4>Collaborateurs</h4>
 
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control ti-add" placeholder="Email du collaborateur" aria-label="Email du collaborateur" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-success ti-add-btn" type="button"><i class="fa-solid fa-user-plus"></i></button>
+                {% if form_collabs_msg %}
+                    <div class="alert alert-{{ form_collabs_msg.css }}">{{ form_collabs_msg.msg }}</div>
+                {% endif %}
+
+                {% if form_update_editable %}
+                    {{ form_start(form_collabs) }}
+                    <div class="input-group mb-3">
+
+                        {{ form_widget(form_collabs.collabs_input, { 'attr': {'class':'form-control ti-add', 'placeholder' : 'Email du collaborateur'}}) }}
+                        <div class="input-group-append">
+                            <button class="btn btn-success ti-add-btn" type="submit"><i class="fa-solid fa-user-plus"></i></button>
+                        </div>
                     </div>
-                </div>
+                    {{ form_end(form_collabs) }}
+                {% endif %}
 
                 <div class="ti-collab">
-                    <img class="avatar" src="https://img.freepik.com/premium-vector/female-user-profile-avatar-is-woman-character-screen-saver-with-emotions_505620-617.jpg?w=2000" alt="">
+                    <img class="avatar" src="{{ task.createby.avatar }}" alt="">
                     <div class="infos">
                         <a title="{{ task.createby.firstname }} {{ task.createby.lastname }}">
                             {{ "#{task.createby.firstname} #{task.createby.lastname}"|length > 14 ? "#{task.createby.firstname} #{task.createby.lastname}"|slice(0, 14) ~ '..' : "#{task.createby.firstname} #{task.createby.lastname}"  }}
@@ -99,7 +179,7 @@
 
                 {% for collab in task.collaborators %}
                     <div class="ti-collab">
-                        <img class="avatar" src="https://img.freepik.com/premium-vector/female-user-profile-avatar-is-woman-character-screen-saver-with-emotions_505620-617.jpg?w=2000" alt="">
+                        <img class="avatar" src="{{ collab.avatar }}" alt="">
                         <div class="infos">
                             <a title="{{ collab.firstname }} {{ collab.lastname }}">
                                 {{ "#{collab.firstname} #{collab.lastname}"|length > 14 ? "#{collab.firstname} #{collab.lastname}"|slice(0, 14) ~ '..' : "#{collab.firstname} #{collab.lastname}"  }}
@@ -107,8 +187,9 @@
                             <span>Collaborateur</span>
                         </div>
                         <div class="delete">
-                            <a href=""><i class="fa-solid fa-user-xmark fa-lg"></i></a>
-
+                            {% if form_update_editable %}
+                                <a href="{{ path("task_delete_collab", { id: task.id, collab:collab.id}) }}"><i class="fa-solid fa-user-xmark fa-lg"></i></a>
+                            {% endif%}
                         </div>
                     </div>
                 {% endfor %}

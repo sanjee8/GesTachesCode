@@ -1,0 +1,128 @@
+.profile-top {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.profileAvatar {
+    position: relative;
+
+    width: 200px;
+}
+
+.profileAvatar a {
+    color: white;
+}
+
+.avatar-top {
+
+    width: 200px;
+    border-radius: 50%;
+
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .3s ease;
+    border-radius: 50%;
+    background-color: #E6E9ED;
+}
+
+.profileAvatar:hover .overlay {
+    opacity: 80%;
+}
+
+
+.icon {
+    color: white;
+    font-size: 100px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+
+.profile-info {
+
+    margin-left: 2%;
+}
+
+
+.profile-top h4 {
+
+    font-size: xx-large;
+    float: inside;
+
+}
+
+.profile-top a {
+    text-decoration: none;
+}
+
+.profile-actions {
+    margin-left: 10%;
+}
+
+.action-btn {
+    border: solid 1px white;
+    padding: 30px;
+    margin: -2px;
+    background-color: white;
+}
+
+.action-active {
+    background-color: #F5F7FA !important;
+}
+
+.action-btn:hover {
+    background-color: #F5F7FA;
+}
+
+.action-btn:first-child {
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.action-btn:last-child {
+    border-end-end-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+
+.account-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.account-actions .waiting {
+    margin: 5%;
+    padding: 10%;
+    border: dashed 2px gray;
+    color: gray;
+    border-radius: 10px;
+}
+
+.account-actions .waiting:hover {
+    color: darkgrey;
+    border-color: darkgrey;
+}
+
+
+.password-change {
+    background-color: white;
+    border-radius: 10px;
+}

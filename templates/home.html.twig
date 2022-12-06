@@ -17,44 +17,15 @@
             <div class="col-md-3 side-tasks">
                 <h4>Tâches en cours</h4>
                 <ul class="list-group list-group-flush task-pending">
-                    <a href="#" class="list-group-item task-link">
+                    {% for task in tasks %}
+                    <a href="{{ path("app_task_manager", {id: task.id}) }}" class="list-group-item task-link">
                         <span class="task-icon"><i class="fa-solid fa-rotate"></i></span>
-                        Cras justo odio
+                        {{ task.name }}
                     </a>
-                    <a href="#" class="list-group-item task-link">
-                        <span class="task-icon"><i class="fa-solid fa-rotate"></i></span>
-                        Cras justo odio
-                    </a>
-                    <a href="#" class="list-group-item task-link">
-                        <span class="task-icon"><i class="fa-solid fa-rotate"></i></span>
-                        Cras justo odio
-                    </a>
-                    <a href="#" class="list-group-item task-link">
-                        <span class="task-icon"><i class="fa-solid fa-rotate"></i></span>
-                        Cras justo odio
-                    </a>
-                    <a href="#" class="list-group-item task-link">
-                        <span class="task-icon"><i class="fa-solid fa-rotate"></i></span>
-                        Cras justo odio
-                    </a>
-                    <a href="#" class="list-group-item task-link">
-                        <span class="task-icon"><i class="fa-solid fa-rotate"></i></span>
-                        Cras justo odio
-                    </a>
-                    <a href="#" class="list-group-item task-link">
-                        <span class="task-icon"><i class="fa-solid fa-rotate"></i></span>
-                        Cras justo odio
-                    </a>
-                    <a href="#" class="list-group-item task-link">
-                        <span class="task-icon"><i class="fa-solid fa-rotate"></i></span>
-                        Cras justo odio
-                    </a>
+                    {% endfor %}
 
                 </ul>
 
-                <div class="see-more">
-                    <a href="">Voir d'avantages..</a>
-                </div>
             </div>
 
             {% block javascripts %}

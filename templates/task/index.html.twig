@@ -32,9 +32,10 @@
                         <th>Nom</th>
                         <th>Date de création</th>
                         <th>Office</th>
-                        <th>Age</th>
-                        <th>Start date</th>
-                        <th>Salary</th>
+                        <th>Crée par</th>
+                        <th>Etat</th>
+
+                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -42,10 +43,25 @@
                     <tr>
                         <td>{{ task.name }}</td>
                         <td>{{ task.dateCreated|date("m/d/Y H:i") }}</td>
-                        <td>Edinburgh</td>
                         <td>61</td>
                         <td>{{ task.createBy.firstname }}</td>
-                        <td>{{ task.status }}</td>
+                        <td>
+                            {% if task.pourcent == 0 %}
+                                <span class="badge bg-secondary">En attente</span>
+                            {% elseif task.pourcent >= 100 %}
+                                <span class="badge bg-success">Terminée</span>
+                            {% else %}
+                                <span class="badge bg-info float-start m-1">En cours</span>
+                                <div class="progress m-1" style="border: solid 1px black">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: {{ task.pourcent }}%;" aria-valuenow="{{ task.pourcent }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            <a href="{{ path("app_task_manager", {id: task.id}) }}" class="btn btn-success btn-sm">Voir plus</a>
+                        </td>
                     </tr>
                     {% endfor %}
 

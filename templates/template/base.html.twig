@@ -9,6 +9,8 @@
         <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
         <link rel="stylesheet" href="{{ asset('css/task.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/users.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/account.css') }}">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap4.min.css">
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
         {{ encore_entry_link_tags('app') }}
@@ -22,7 +24,7 @@
         <div class="col-md-5 profileTop">
             <div class="avatarContainerTop">
                 <img class="avatarTop"
-                     src="https://img.freepik.com/premium-vector/female-user-profile-avatar-is-woman-character-screen-saver-with-emotions_505620-617.jpg?w=2000"
+                     src="{{ app.user.avatar }}"
                      alt="">
             </div>
             <div class="infoContainerTop">
@@ -47,12 +49,13 @@
                     <a href="{{ path("task") }}" class="nav-link {% if active_page == 'task' %}active{% endif %}">Tâches</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../help/">Utilisateurs</a>
+                    <a class="nav-link {% if active_page == 'users' %}active{% endif %}" href="{{ path("users") }}">Utilisateurs</a>
                 </li>
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link" href="#">Mon
-                        compte</a>
+                <li class="nav-item">
+                    <a class="nav-link {% if active_page == 'user' %}active{% endif %}" href="{{ path("account") }}">
+                        Mon compte
+                    </a>
                 </li>
             </ul>
         </div>

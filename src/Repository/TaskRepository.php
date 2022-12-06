@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Task;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -39,20 +41,61 @@ class TaskRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Task[] Returns an array of Task objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('t.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Task[] Returns an array of Task objects
+     */
+    public function findByCreateBy($value): array
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.create_by = :val')
+            ->setParameter('val', $value)
+            ->orderBy('t.id', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * @return ArrayCollection Returns an array of Task objects
+     */
+    public function findByTaskOf(User $user) {
+
+        $tasks_created = new ArrayCollection($this->findByCreateBy($user->getId()));
+
+        $tasks_collabs = $user->getITasks();
+
+        return new ArrayCollection(
+            array_merge($tasks_created->toArray(), $tasks_collabs->toArray())
+        );
+
+    }
+
+    /**
+     * @return ArrayCollection Returns an array of Task objects
+     */
+    public function findByTaskOfLimit(User $user, int $limit) {
+
+        $tasks_created = new ArrayCollection($this->findByCreateBy($user->getId()));
+
+        $tasks_created = $tasks_created->filter(
+            function ($entry) {
+
+                return $entry->getPourcent() < 100;
+
+            }
+        );
+
+        $tasks_collabs = $user->getITasks()->filter(
+            function ($entry) {
+                return $entry->getPourcent() < 100;
+            }
+        );
+
+        return new ArrayCollection(
+            array_slice(array_merge($tasks_created->toArray(), $tasks_collabs->toArray()), 0, $limit)
+        );
+
+    }
 
 //    public function findOneBySomeField($value): ?Task
 //    {

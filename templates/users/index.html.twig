@@ -1,0 +1,191 @@
+{% extends 'template/base.html.twig' %}
+
+{% set active_page = 'users' %}
+{% block title %}Utilisateurs{% endblock %}
+
+
+{% block body %}
+
+
+    <div class="container mt-4">
+        <div class="row">
+
+            <div class="tasks">
+
+                <div class=" mb-5">
+                    <h4>Liste des utilisateurs</h4>
+
+
+
+                </div>
+
+
+
+                <table id="user_table" class="table table-striped p-3">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Nom</th>
+                        <th>Email</th>
+                        <th>Inscrit le</th>
+                        <th>Rôle</th>
+                        {% if editable %}
+                        <th>Actions</th>
+                        {% endif %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <td><img src="{{ user.avatar }}" width="32px" style="border-radius: 50%" alt=""></td>
+                                <td>{{ user.firstname }} {{ user.lastname }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.dateRegister|date("m/d/Y H:i") }}</td>
+                                <td>
+                                    {% if "ROLE_ADMIN" in user.roles %}
+                                        <span class="badge bg-danger">ADMIN</span>
+                                    {% else%}
+                                        <span class="badge bg-info">Membre</span>
+                                    {% endif %}
+                                </td>
+                                {% if editable %}
+                                <td>
+                                    <button {% if "ROLE_ADMIN" in user.roles %}data-isadmin="true"{% endif %} data-id="{{ user.id }}" data-name="{{ user.firstname }} {{ user.lastname }}" data-avatar="{{ user.avatar }}"  class="btn btn-sm btn-info adminUserProfile"><i class="fa-solid fa-user-shield"></i></button>
+
+
+                                    <button {% if "ROLE_ADMIN" in user.roles %}data-isadmin="true"{% endif %} data-id="{{ user.id }}" data-name="{{ user.firstname }} {{ user.lastname }}" data-avatar="{{ user.avatar }}"  class="btn btn-sm btn-outline-secondary deleteUserProfile"><i class="fa-solid fa-trash-can"></i></button>
+                                </td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+
+
+
+                {% if editable %}
+                <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserModal" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <div class="row">
+                                    <h5 class="confirm-header">Êtes vous sûr de vouloir supprimer cet utilisateur ?</h5>
+                                    <p>Vous êtes sur le point de supprimer un utilisateur et cette action est irréversible !</p>
+                                    <input type="text" value="{{ path("users_delete", {id: 0}) }}" hidden disabled id="profile-data-model-link">
+
+                                    <div class="profile-confirm mb-5">
+                                        <img id="profile-data-avatar" alt="">
+                                        <div class="profile-infos">
+                                            <div id="profile-data-name"></div>
+                                            <span class="badge bg-info">Membre</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="float-end">
+                                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Annuler</button>
+                                    <a href="" id="profile-data-link" class="btn btn-danger btn-sm">Supprimer cet utilisateur</a>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="deleteDeniedModal" tabindex="-1" role="dialog" aria-labelledby="deleteDeniedModal" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <div class="row">
+                                    <h5 class="confirm-header">Action impossible !</h5>
+                                    <p id="deniedMsg">Vous ne pouvez pas supprimer un utilisateur avec les droits ADMIN!</p>
+                                    <input type="text" value="" hidden="true" disabled id="profile-data-model-link">
+
+                                </div>
+
+
+                                <div class="float-end">
+                                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Compris</button>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="modal fade" id="adminUserModal" tabindex="-1" role="dialog" aria-labelledby="adminUserModal" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <div class="row">
+                                    <h5 class="confirm-header">Êtes vous sûr de vouloir donner les droits ADMIN ?</h5>
+                                    <p>Vous êtes sur le point de donner les droits ADMIN à cet utilisateur ! Il aura un accès total sur tout le site web !</p>
+                                    <input type="text" value="{{ path("users_set_admin", {id: 0}) }}" hidden="true" disabled id="profile-data-model-link-admin">
+
+                                    <div class="profile-confirm mb-5">
+                                        <img id="profile-data-avatar-admin" alt="">
+                                        <div class="profile-infos">
+                                            <div id="profile-data-name-admin"></div>
+                                            <span class="badge bg-danger">ADMIN</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="float-end">
+                                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Annuler</button>
+                                    <a href="" id="profile-data-link-admin" class="btn btn-danger btn-sm">Promouvoir cet utilisateur</a>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="removeAdminModal" tabindex="-1" role="dialog" aria-labelledby="removeAdminModal" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <div class="row">
+                                    <h5 class="confirm-header">Êtes vous sûr de lui retirer les droits ADMIN ?</h5>
+                                    <p>Vous êtes sur le point de retirer les droits ADMIN à cet utilisateur. Il ne pourra plus accéder à certaines pages.</p>
+                                    <input type="text" value="{{ path("users_remove_admin", {id: 0}) }}" hidden="true" disabled id="profile-data-model-link-admin-remove">
+
+                                    <div class="profile-confirm mb-5">
+                                        <img id="profile-data-avatar-admin-remove" alt="">
+                                        <div class="profile-infos">
+                                            <div id="profile-data-name-admin-remove"></div>
+                                            <span class="badge bg-info">Membre</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="float-end">
+                                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Annuler</button>
+                                    <a href="" id="profile-data-link-admin-remove" class="btn btn-danger btn-sm">Retirer ses droits</a>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+{% endblock %}
+

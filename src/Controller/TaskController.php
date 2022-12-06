@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Form\TaskType;
 use App\Repository\UserRepository;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
@@ -23,13 +24,25 @@ class TaskController extends AbstractController
     public function index(EntityManagerInterface $manager): Response
     {
 
+
+
         $msg = null;
-        $tasks = $manager->getRepository(Task::class)->findAll();
+
+
+        if($this->isGranted('ROLE_ADMIN')) {
+            $tasks = $manager->getRepository(Task::class)->findAll();
+        } else {
+            $tasks = $manager->getRepository(Task::class)->findByTaskOf($this->getUser());
+        }
+
+
 
         if(isset($_GET["m"])) {
-            $msg = trim($_GET['m']);
-            if($msg == "task_created") {
+            $msg_brut = trim($_GET['m']);
+            if($msg_brut == "task_created") {
                 $msg = "La tâche a bien été crée avec succès !";
+            } else if($msg_brut == "not_found") {
+                $msg = "La tâche recherchée n'existe pas ou vous n'y avez pas accès !";
             }
         }
 
@@ -61,7 +74,7 @@ class TaskController extends AbstractController
             $task->setCreateBy($this->getUser());
 
 
-
+            $task->setPourcent(0);
 
             $brut_text = explode(",", $task->getCollabsInput());
 
